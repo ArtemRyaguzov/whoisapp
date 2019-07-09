@@ -1,0 +1,25 @@
+<form id="form" action="/" method="post">
+    <input id="userInput" type="text" name="domain" required>
+    <select name="operation">
+        <option value="whois">Whois</option>
+        <option value="host">IP-адрес</option>
+        <option value="punycode">Punycode</option>
+        <option value="all" selected>Всё сразу</option>
+    </select>
+    <input type="submit" value="Вперёд!">
+</form>
+
+
+<ul>
+    {{#each outputArr}}
+        <li>{{this}}</li>
+    {{/each}}
+
+    {{#each resultArr}}
+        <li>{{this}}</li>
+    {{/each}}
+    {{validatedTarget}}
+</ul>
+
+
+<script src="public/js/main.js"></script>
