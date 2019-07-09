@@ -1,0 +1,24 @@
+{
+  "name": "whois_web_client",
+  "version": "1.0.0",
+  "description": "Whois web client with punycode converter",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ArtemRyaguzov/whoisapp.git"
+  },
+  "author": "Artem Ryaguzov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ArtemRyaguzov/whoisapp/issues"
+  },
+  "homepage": "https://github.com/ArtemRyaguzov/whoisapp#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-handlebars": "^3.1.0",
+    "moment": "^2.24.0"
+  }
+}
