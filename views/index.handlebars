@@ -1,25 +1,103 @@
-<form id="form" action="/" method="post">
-    <input id="userInput" type="text" name="domain" required>
-    <select name="operation">
-        <option value="whois">Whois</option>
-        <option value="host">IP-адрес</option>
-        <option value="punycode">Punycode</option>
-        <option value="all" selected>Всё сразу</option>
-    </select>
-    <input type="submit" value="Вперёд!">
-</form>
+<nav class="navbar">
+    <div class="navbar__container">
+        <div class="navbar__brand">
+            <a href="/" class="navbar__logo">&lt;/Codeboy&gt;</a>
+        </div>
+
+        <ul class="navbar__nav-point">
+            <li class="navbar__item">
+                <a href="#" id="w-openModal" class="navbar__link">Что такое Whois?</a>
+            </li>
+            <li class="navbar__item">
+                <a href="#" id="p-openModal" class="navbar__link">Что такое Punycode?</a>
+            </li>
+        </ul>
+    </div>
+</nav>
 
 
-<ul>
-    {{#each outputArr}}
-        <li>{{this}}</li>
-    {{/each}}
+<section class="bg">
+    <h3 class="bg__object location-left-top">example<span class="bg__highlighted">.com</span></h3>
+    <h3 class="bg__object location-right-top"><span class="bg__highlighted">тест</span>.рф</h3>
+    <h3 class="bg__object location-right-bottom">8.8.8.8</h3>
+    <h3 class="bg__object location-left-bottom">test<span class="bg__highlighted">.ru</span></h3>
+</section>
 
-    {{#each resultArr}}
-        <li>{{this}}</li>
-    {{/each}}
-    {{validatedTarget}}
-</ul>
+<section class="main">
+
+    <h1 class="main__header">Whois Веб Клиент и Punycode конвертер</h1>
+    <p class="main__subheader">
+        Введите доменное имя или IP-адрес в форме ниже. Выберите необходимую операцию, или "Всё сразу", а затем нажмите "Вперёд".
+    </p>
+
+    <form class="main__form" id="form" action="/" method="post">
+        <input class="main__input" id="userInput" type="text" name="domain" placeholder="Введите домен или IP" required>
+        <select class="main__select" name="operation">
+            <option value="whois">Whois</option>
+            <option value="host">А-запись</option>
+            <option value="punycode">Punycode</option>
+            <option value="all" selected>Всё сразу</option>
+        </select>
+        <input class="main__submit" type="submit" value="Вперёд!">
+    </form>
+
+
+    <ul class="main__response">
+        <h2 class="main__response-header">{{title}}</h2>
+        {{#each outputArr}}
+            <li class="main__res-item">{{this}}</li>
+        {{/each}}
+
+
+        <h2 class="main__response-header">{{subTitle}}</h2>
+        {{#each resultArr}}
+            <li class="main__res-item">{{this}}</li>
+        {{/each}}
+        <h2 class="main__response-header">{{subHeader}}</h2>
+        {{validatedTarget}}
+    </ul>
+</section>
+
+
+<div id="w-modal" class="modal">
+    <span id="w-closeBtn" class="modal__closeBtn">x</span>
+
+    <div class="modal__body">
+        <h2 class="modal__header">Что такое Whois</h2>
+        <div class="modal__content">
+            <p class="modal__text">
+                Whois предназначен для получения регистрационных данных о владельцах доменных имён и IP-адресов.
+                Также Whois предоставляет подробную информацию о домене, например, серверы имён на которые делегирован домен,
+                данные о первичной регистрации, сроках окончания регистрации, периоде преимущественного продления и пр.
+                Помимо этого с помощью Whois можно выяснить какая организация выступает в качетсве регистратора домена.
+            </p>
+            <p class="modal__text">
+                Обратите внимание, если владельцем домена в зоне .RU, .SU, .РФ является физическое лицо, то в строке "REGISTRANT"
+                вы увидите значение "PRIVATE PERSON", а также ссылку на форму обратной связи с владельцем домена на сайте регистратора.
+                Также "PRIVATE PERSON" можно увидеть в данных владельца международного домена, это означает что защита персональных данных
+                предоставляется регистранту на тех или иных условиях.
+            </p>
+        </div>
+    </div>
+</div>
+
+
+<div id="p-modal" class="modal">
+    <span id="p-closeBtn" class="modal__closeBtn">x</span>
+
+    <div class="modal__body">
+        <h2 class="modal__header">Что такое Punycode</h2>
+        <div class="modal__content">
+            <p class="modal__text">
+                Cтандартизированный метод преобразования последовательностей Unicode-символов в так называемые ACE-последовательности
+                (англ. ASCII Compatible Encoding — кодировка, совместимая с ASCII),
+                которые состоят только из алфавитно-цифровых символов, как это разрешено в доменных именах.
+                Punycode был разработан для однозначного преобразования IDN-доменов
+                (доменные имена, которые содержат символы национальных алфавитов, например, тест.рф) в последовательность ASCII-символов.
+            </p>
+        </div>
+    </div>
+</div>
 
 
 <script src="public/js/main.js"></script>
