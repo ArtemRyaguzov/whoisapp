@@ -91,6 +91,14 @@ body {
     color: #ce4939;
 }
 
+.bg__ip {
+    display: none;
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    font-family: 'Jura', sans-serif;
+}
+
 .location-left-top {
     position: absolute;
     left: 10%;
@@ -172,6 +180,7 @@ body {
     color: #495057;
     cursor: pointer;
     font-family: 'Jura', sans-serif;
+    outline: none;
 }
 
 .main__submit {
@@ -324,6 +333,10 @@ body {
         display: flex;
         align-self: center;
         margin: 0 0 0 auto;
+    }
+
+    .bg__ip {
+        display: block;
     }
 
 }

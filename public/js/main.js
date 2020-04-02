@@ -2,7 +2,7 @@ const form = document.getElementById('form');
 const userInput = document.getElementById('userInput');
 
 form.addEventListener('submit', (e) => {
-    if(userInput.value === ''){
+    if(userInput.value.trim() === ''){
         e.preventDefault();
         alert('Пожалуйста, введите доменное имя или IP-адрес');
     }
@@ -15,90 +15,76 @@ const leftBottom = document.querySelector('.location-left-bottom');
 const rightTop = document.querySelector('.location-right-top');
 
 document.body.addEventListener('mousemove', (e) => {
-    let valueX = (e.pageX * -1 / 24);
-    let valueY = (e.pageY * -1 / 24);
+    let leftTopValueX = (e.pageX * -1 / 24),
+        leftTopValueY = (e.pageY * -1 / 24),
+        leftBottomValueX = (e.pageX * -1 / 16),
+        leftBottomValueY = (e.pageY * -1 / 6),
+        rightTopValueX = (e.pageX * -1 / 16),
+        rightTopValueY = (e.pageY * -1 / 8),
+        rightBottomValueX = (e.pageX * -1 / 4),
+        rightBottomValueY = (e.pageY * -1 / 8);
 
-    leftTop.style.transform = `translate3d(${valueX}px, ${valueY}px, 0)`;
+
+    leftTop.style.transform = `translate3d(${leftTopValueX}px, ${leftTopValueY}px, 0)`;
+    leftBottom.style.transform = `translate3d(${leftBottomValueX}px, ${leftBottomValueY}px, 0)`;
+    rightTop.style.transform = `translate3d(${rightTopValueX}px, ${rightTopValueY}px, 0)`;
+    rightBottom.style.transform = `translate3d(${rightBottomValueX}px, ${rightBottomValueY}px, 0)`;
 });
 
-document.body.addEventListener('mousemove', (e) => {
-    let valueX = (e.pageX * -1 / 4);
-    let valueY = (e.pageY * -1 / 8);
-
-    rightBottom.style.transform = `translate3d(${valueX}px, ${valueY}px, 0)`;
-});
-
-document.body.addEventListener('mousemove', (e) => {
-    let valueX = (e.pageX * -1 / 16);
-    let valueY = (e.pageY * -1 / 8);
-
-    rightTop.style.transform = `translate3d(${valueX}px, ${valueY}px, 0)`;
-});
-
-document.body.addEventListener('mousemove', (e) => {
-    let valueX = (e.pageX * -1 / 16);
-    let valueY = (e.pageY * -1 / 6);
-
-    leftBottom.style.transform = `translate3d(${valueX}px, ${valueY}px, 0)`;
-});
 
 const submitBtn = document.querySelector('.main__submit');
 
-submitBtn.addEventListener('mouseenter', () => {
-    if(!userInput.value){
-        submitBtn.style.background = '#ce4939';
-        submitBtn.setAttribute('title', 'Введите доменное имя или IP-адрес');
+submitBtn.addEventListener('mouseenter', function(){
+    if(!userInput.value.trim()){
+        this.style.background = '#ce4939';
+        this.setAttribute('title', 'Введите доменное имя или IP-адрес');
     } else {
-        submitBtn.style.background = '#34b3a0';
+        this.style.background = '#34b3a0';
     }
 });
 
-submitBtn.addEventListener('mouseleave', () => {
-    submitBtn.removeAttribute('title');
-    submitBtn.removeAttribute('style');
+submitBtn.addEventListener('mouseleave', function(){
+    this.removeAttribute('title');
+    this.removeAttribute('style');
 });
 
 
-const openW = document.getElementById('w-openModal');
-const openP = document.getElementById('p-openModal');
-const closeW = document.getElementById('w-closeBtn');
-const closeP = document.getElementById('p-closeBtn');
-const modalW = document.getElementById('w-modal');
-const modalP = document.getElementById('p-modal');
-
-openW.addEventListener('click', openWModal);
-openP.addEventListener('click', openPModal);
-closeW.addEventListener('click', closeWModal);
-closeP.addEventListener('click', closePModal);
-
-window.addEventListener('click', (e) => {
-    if(e.target == modalW){
-        closeWModal();
-    } else if(e.target == modalP){
-        closePModal();
+class Modal {
+    constructor(element, opener, closer){
+        this.element = element,
+        this.opener = opener,
+        this.closer = closer
     }
-});
 
-function openWModal(){
-    modalW.classList.add('modal_type_opened');
+    openModal(){
+        this.element.classList.add('modal_type_opened');
+    }
+
+    closeModal(){
+        this.element.classList.add('modal_type_closing');
+
+        setTimeout(() => {
+            this.element.classList.remove('modal_type_closing', 'modal_type_opened');
+        }, 900);
+    }
+
+    init(){
+        this.opener.addEventListener('click', () => {
+            this.openModal();
+        });
+        this.closer.addEventListener('click', () => {
+            this.closeModal();
+        });
+        window.addEventListener('click', (e) => {
+            if(e.target == this.element){
+                this.closeModal();
+            }
+        });
+    }
 }
 
-function openPModal(){
-    modalP.classList.add('modal_type_opened');
-}
+const whoisModalInstance = new Modal(document.getElementById('w-modal'), document.getElementById('w-openModal'), document.getElementById('w-closeBtn'));
+const punycodeModalInstance = new Modal(document.getElementById('p-modal'), document.getElementById('p-openModal'), document.getElementById('p-closeBtn'));
 
-function closeWModal(){
-    modalW.classList.add('modal_type_closing');
-
-    setTimeout(() => {
-        modalW.classList.remove('modal_type_closing', 'modal_type_opened');
-    }, 900);
-}
-
-function closePModal(){
-    modalP.classList.add('modal_type_closing');
-
-    setTimeout(() => {
-        modalP.classList.remove('modal_type_closing', 'modal_type_opened');
-    }, 900);
-}
+whoisModalInstance.init();
+punycodeModalInstance.init();

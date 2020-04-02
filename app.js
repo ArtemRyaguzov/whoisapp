@@ -3,6 +3,7 @@ const path = require('path');
 const exphbs = require('express-handlebars');
 
 const app = express();
+app.disable('x-powered-by');
 
 // Middleware
 // View Engine
@@ -21,6 +22,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Routes
 
 app.use('/', require('./routes/main-router'));
+
+app.use((req, res, next) => {
+    res.status(404).sendFile(path.join(__dirname, 'public', '404.html'));
+});
 
 // End of Routes
 
