@@ -19,9 +19,8 @@
 <section class="bg">
     <h3 class="bg__object location-left-top">example<span class="bg__highlighted">.com</span></h3>
     <h3 class="bg__object location-right-top"><span class="bg__highlighted">тест</span>.рф</h3>
-    <h3 class="bg__object location-right-bottom">8.8.8.8</h3>
+    <h3 class="bg__object location-right-bottom">{{ clientIp }}</h3>
     <h3 class="bg__object location-left-bottom">test<span class="bg__highlighted">.ru</span></h3>
-    <small class="bg__ip">Ваш IP: {{ clientIp }}</small>
 </section>
 
 <section class="main">
@@ -32,10 +31,10 @@
     </p>
 
     <form class="main__form" id="form" action="/" method="post">
-        <input class="main__input" id="userInput" type="text" name="domain" placeholder="Введите домен или IP" required>
+        <input class="main__input" id="userInput" type="text" name="target" placeholder="Введите домен или IP" required>
         <select class="main__select" name="operation">
             <option value="whois">Whois</option>
-            <option value="host">А-запись</option>
+            <option value="dns">DNS-записи</option>
             <option value="punycode">Punycode</option>
             <option value="all" selected>Всё сразу</option>
         </select>
@@ -44,18 +43,19 @@
 
 
     <ul class="main__response">
-        <h2 class="main__response-header">{{title}}</h2>
-        {{#each outputArr}}
-            <li class="main__res-item">{{this}}</li>
+        <h2 class="main__response-header">{{ title }}</h2>
+        <h2 class="main__response-header">{{ errorMessage }}</h2>
+        {{#each output}}
+            <li class="main__res-item">{{ this }}</li>
         {{/each}}
 
+        <h2 class="main__response-header">{{ subHeader }}</h2>
+        {{ validTarget }}
 
-        <h2 class="main__response-header">{{subTitle}}</h2>
-        {{#each resultArr}}
-            <li class="main__res-item">{{this}}</li>
+        <h2 class="main__response-header">{{ subTitle }}</h2>
+        {{#each result}}
+            <li class="main__res-item">{{ this }}</li>
         {{/each}}
-        <h2 class="main__response-header">{{subHeader}}</h2>
-        {{validatedTarget}}
     </ul>
 </section>
 

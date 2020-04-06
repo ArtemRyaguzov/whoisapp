@@ -91,14 +91,6 @@ body {
     color: #ce4939;
 }
 
-.bg__ip {
-    display: none;
-    position: absolute;
-    left: 10px;
-    bottom: 10px;
-    font-family: 'Jura', sans-serif;
-}
-
 .location-left-top {
     position: absolute;
     left: 10%;
@@ -200,6 +192,7 @@ body {
 .main__response {
     padding: 0 1rem;
     z-index: 1;
+    max-width: 700px;
 }
 
 .main__response-header {
@@ -209,6 +202,7 @@ body {
 .main__res-item {
     list-style: none;
     margin: 5px 0;
+    word-break: break-word;
 }
 
 
@@ -226,7 +220,8 @@ body {
 
 
 .modal_type_opened {
-    display: block;
+    display: flex;
+    align-items: center;
 
     animation-name: opening;
     animation-duration: 1s;
@@ -273,7 +268,7 @@ body {
 
 .modal__body {
     max-width: 400px;
-    margin: 4rem auto;
+    margin: auto;
     border-radius: 10px;
     font-family: 'Jura', sans-serif;
     font-size: 1.2rem;
@@ -333,10 +328,6 @@ body {
         display: flex;
         align-self: center;
         margin: 0 0 0 auto;
-    }
-
-    .bg__ip {
-        display: block;
     }
 
 }
